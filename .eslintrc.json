@@ -1,0 +1,7 @@
+{
+  "extends": ["next/core-web-vitals", "next/typescript"],
+  "rules": {
+    "@typescript-eslint/no-explicit-any": "off", // Disable no-explicit-any rule
+    "@next/next/no-img-element": "warn" // Change img-element warning to a warning
+  }
+}
