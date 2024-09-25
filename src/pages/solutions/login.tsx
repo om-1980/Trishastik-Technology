@@ -37,7 +37,22 @@ const Login = () => {
         
         if (response.ok) {
           localStorage.setItem('token', data.token);
-          router.push('/solutions/dashboard/');
+
+          // Redirect based on role (fetched from backend)
+          switch (data.role) {
+            case "Salesforce Remote Database Management":
+              router.push('/solutions/salesforce');
+              break;
+            case "EduManage CRM Solutions":
+              router.push('/solutions/edumanage');
+              break;
+            case "Technology Consultancy Services":
+              router.push('/solutions/techconsult');
+              break;
+            default:
+              router.push('/solutions/dashboard/');
+              break;
+          }
         } else {
           setErrorMessage(data.message);
         }
@@ -105,6 +120,12 @@ const Login = () => {
           Don&#39;t have an account?{' '}
           <Link href="/solutions/signup" className="text-blue-500 hover:text-blue-600">
             Sign Up
+          </Link>
+        </p>
+        <p className="mt-2 text-center text-sm text-gray-600">
+          Forgot your password?{' '}
+          <Link href="/solutions/forgot-password" className="text-blue-500 hover:text-blue-600">
+            Reset it here
           </Link>
         </p>
       </div>

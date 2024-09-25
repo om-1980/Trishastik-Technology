@@ -31,11 +31,11 @@ if (!isset($postData['email']) || !isset($postData['password'])) {
 $email = $postData['email'];
 $password = $postData['password'];
 
-// Prepare and execute SQL query to authenticate the user
-$stmt = $conn->prepare("SELECT password FROM users WHERE email = ?");
+// Prepare and execute SQL query to authenticate the user and get the role
+$stmt = $conn->prepare("SELECT password, role FROM users WHERE email = ?");
 $stmt->bind_param("s", $email);
 $stmt->execute();
-$stmt->bind_result($hashedPassword);
+$stmt->bind_result($hashedPassword, $role);
 $stmt->fetch();
 $stmt->close();
 
@@ -46,10 +46,11 @@ if (!$hashedPassword || !password_verify($password, $hashedPassword)) {
     exit();
 }
 
-// Return the success message and the token
+// Return the success message, token (email as a token for now), and role
 $response = [
     "message" => "Login successful",
-    "token" => $email
+    "token" => $email,
+    "role" => $role    
 ];
 
 // Set the response type to JSON

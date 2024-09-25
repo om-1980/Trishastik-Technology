@@ -13,11 +13,46 @@ const Signup = () => {
   const [businessType, setBusinessType] = useState('');
   const [organizationName, setOrganizationName] = useState(''); // Organization name
   const [location, setLocation] = useState('');
-  const [role, setRole] = useState('Salesforce Remote Database Management'); // Default role
+  const [role, setRole] = useState(''); // Default to empty string (means no role selected yet)
+  const [passwordError, setPasswordError] = useState(''); // For displaying password errors
   const router = useRouter();
+
+  // Password validation function
+  const validatePassword = (password: string) => {
+    const strongPasswordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+    return strongPasswordRegex.test(password);
+  };
+
+  // Define the business type options for each role
+  const getBusinessTypeOptions = () => {
+    if (role === 'Salesforce Remote Database Management') {
+      return [
+        { value: 'small_businesses', label: 'Small Businesses' },
+        { value: 'schools', label: 'Schools' },
+        { value: 'coaching_centers', label: 'Coaching Centers' },
+        { value: 'libraries', label: 'Libraries' },
+        { value: 'others', label: 'Others' }, // Added "Others" option
+      ];
+    } else if (role === 'EduManage CRM Solutions') {
+      return [{ value: 'educational_institutions', label: 'Educational Institutions' }];
+    } else if (role === 'Technology Consultancy Services') {
+      return [{ value: 'business', label: 'Business' }];
+    }
+    return [];
+  };
 
   const handleSignup = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    // Validate the password before proceeding
+    if (!validatePassword(password)) {
+      setPasswordError(
+        'Password must be at least 8 characters long, contain an uppercase letter, a lowercase letter, a number, and a special character.'
+      );
+      return;
+    } else {
+      setPasswordError(''); // Clear error if password is valid
+    }
 
     if (name && email && password && businessType && organizationName && location && role) {
       try {
@@ -46,7 +81,7 @@ const Signup = () => {
         }
       } catch (error) {
         alert('Something went wrong. Please try again.');
-        console.log("Error: ", error);
+        console.log('Error: ', error);
       }
     } else {
       alert('Please fill out all fields');
@@ -105,6 +140,27 @@ const Signup = () => {
               placeholder="Enter your password"
               required
             />
+            {passwordError && <p className="text-red-500 text-sm mt-1">{passwordError}</p>}
+          </div>
+          <div>
+            <label htmlFor="role" className="block text-sm font-medium text-gray-700">
+              Role
+            </label>
+            <select
+              id="role"
+              value={role}
+              onChange={(e) => {
+                setRole(e.target.value);
+                setBusinessType(''); // Clear business type when role changes
+              }}
+              className="mt-1 block w-full p-3 border border-gray-300 rounded-md"
+              required
+            >
+              <option value="">Select Role</option> {/* Default empty option */}
+              <option value="Salesforce Remote Database Management">Salesforce Remote Database Management</option>
+              <option value="EduManage CRM Solutions">EduManage CRM Solutions</option>
+              <option value="Technology Consultancy Services">Technology Consultancy Services</option>
+            </select>
           </div>
           <div>
             <label htmlFor="businessType" className="block text-sm font-medium text-gray-700">
@@ -116,13 +172,14 @@ const Signup = () => {
               onChange={(e) => setBusinessType(e.target.value)}
               className="mt-1 block w-full p-3 border border-gray-300 rounded-md"
               required
+              disabled={!role} // Disable the dropdown if role is not selected
             >
               <option value="">Select your business type</option>
-              <option value="businesses">Businesses</option>
-              <option value="schools">Schools</option>
-              <option value="coaching_centers">Coaching Centers</option>
-              <option value="libraries">Libraries</option>
-              <option value="others">Others</option>
+              {getBusinessTypeOptions().map((option) => (
+                <option key={option.value} value={option.value}>
+                  {option.label}
+                </option>
+              ))}
             </select>
           </div>
           <div>
@@ -152,22 +209,6 @@ const Signup = () => {
               placeholder="Enter your location"
               required
             />
-          </div>
-          <div>
-            <label htmlFor="role" className="block text-sm font-medium text-gray-700">
-              Role
-            </label>
-            <select
-              id="role"
-              value={role}
-              onChange={(e) => setRole(e.target.value)}
-              className="mt-1 block w-full p-3 border border-gray-300 rounded-md"
-              required
-            >
-              <option value="Salesforce Remote Database Management">Salesforce Remote Database Management</option>
-              <option value="EduManage CRM Solutions">EduManage CRM Solutions</option>
-              <option value="Technology Consultancy Services">Technology Consultancy Services</option>
-            </select>
           </div>
           <button
             type="submit"
