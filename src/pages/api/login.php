@@ -32,7 +32,7 @@ $email = $postData['email'];
 $password = $postData['password'];
 
 // Prepare and execute SQL query to authenticate the user and get the role
-$stmt = $conn->prepare("SELECT password, role FROM users WHERE email = ?");
+$stmt = $conn->prepare("SELECT password, role FROM users WHERE email = ? AND is_verified = 1");
 $stmt->bind_param("s", $email);
 $stmt->execute();
 $stmt->bind_result($hashedPassword, $role);

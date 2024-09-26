@@ -31,13 +31,30 @@ if (isset($data['name']) && isset($data['email']) && isset($data['password'])) {
     $location = $data['location'];
     $role = $data['role'];
 
-    // Prepare SQL query to insert data into users table
-    $stmt = $conn->prepare("INSERT INTO users (name, email, password, business_type, organizationName, location, role) VALUES (?, ?, ?, ?, ?, ?, ?)");
-    $stmt->bind_param("sssssss", $name, $email, $password, $businessType, $organizationName, $location, $role);
+    // Generate a verification token
+    $verification_token = bin2hex(random_bytes(32)); // 64-character token
+
+    // Prepare SQL query to insert data into users table with verification token and status
+    $stmt = $conn->prepare("INSERT INTO users (name, email, password, business_type, organizationName, location, role, verification_token, is_verified) VALUES (?, ?, ?, ?, ?, ?, ?, ?, 0)");
+    $stmt->bind_param("ssssssss", $name, $email, $password, $businessType, $organizationName, $location, $role, $verification_token);
 
     if ($stmt->execute()) {
-        http_response_code(200);
-        echo json_encode(["message" => "User registered successfully"]);
+        // Send verification email
+        $verification_link = "https://trishastik.com/solutions/verify-email?token=" . $verification_token;
+
+        $subject = "Verify Your Email";
+        $message = "Hello $name,\n\nThank you for signing up. Please click the link below to verify your email address and complete the signup process:\n\n";
+        $message .= $verification_link . "\n\nIf you did not sign up for this account, please ignore this email.";
+        $headers = "From: no-reply@trishastik.com\r\n";
+        $headers .= "Content-Type: text/plain; charset=UTF-8\r\n";
+
+        if (mail($email, $subject, $message, $headers)) {
+            http_response_code(200);
+            echo json_encode(["message" => "Signup successful. Please check your email to verify your account."]);
+        } else {
+            http_response_code(500);
+            echo json_encode(["message" => "User registered but failed to send verification email"]);
+        }
     } else {
         http_response_code(500);
         echo json_encode(["message" => "Failed to register user"]);

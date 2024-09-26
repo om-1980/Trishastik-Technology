@@ -73,7 +73,7 @@ const Signup = () => {
         });
 
         if (response.ok) {
-          alert('Signup successful! Redirecting to login...');
+          alert('Signup successful! Please check your email to verify your account.');
           router.push('/solutions/login');
         } else {
           const data = await response.json();
