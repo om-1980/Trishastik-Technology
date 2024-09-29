@@ -37,17 +37,17 @@ function getEmailFromToken($token) {
 $userEmail = getEmailFromToken($token);
 
 // Prepare SQL query to get the user's name based on the email
-$stmt = $conn->prepare("SELECT name FROM users WHERE email = ?");
+$stmt = $conn->prepare("SELECT name, role, business_type FROM users WHERE email = ?");
 $stmt->bind_param("s", $userEmail);
 $stmt->execute();
-$stmt->bind_result($userName);
+$stmt->bind_result($userName, $userRole, $userBusinessType);
 $stmt->fetch();
 $stmt->close();
 
 // Return the user's name if found
 if ($userName) {
     http_response_code(200);
-    echo json_encode(["name" => $userName]);
+    echo json_encode(["name" => $userName, "role" => $userRole, "business_type" => $userBusinessType]);
 } else {
     http_response_code(404);
     echo json_encode(["message" => "User not found"]);

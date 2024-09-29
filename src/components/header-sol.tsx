@@ -12,7 +12,7 @@ const HeaderSol = ({ userName }: { userName: string }) => {
   }, [userName]);
 
   return (
-    <header className="bg-blue-600 text-white shadow-lg py-4">
+    <header className="bg-blue-600 text-white shadow-lg py-4 z-50">
       <div className="max-w-6xl mx-auto px-4 flex justify-between items-center">
         {/* Logo or Title */}
         <div className="text-2xl font-bold">
@@ -23,17 +23,17 @@ const HeaderSol = ({ userName }: { userName: string }) => {
 
         {/* Navigation */}
         <nav className="space-x-6 hidden md:block">
-          <Link href="/dashboard" className="hover:text-blue-200 transition duration-200">
+          <Link href="/solutions/salesforce" className="hover:text-blue-200 transition duration-200">
             Dashboard
           </Link>
-          <Link href="/services" className="hover:text-blue-200 transition duration-200">
-            Services
+          <Link href="/solutions/report" className="hover:text-blue-200 transition duration-200">
+            Report
           </Link>
-          <Link href="/profile" className="hover:text-blue-200 transition duration-200">
+          <Link href="/solutions/settings" className="hover:text-blue-200 transition duration-200">
+            Settings
+          </Link>
+          <Link href="solutions/profile" className="hover:text-blue-200 transition duration-200">
             Profile
-          </Link>
-          <Link href="/about" className="hover:text-blue-200 transition duration-200">
-            About Us
           </Link>
         </nav>
 

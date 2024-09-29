@@ -1,6 +1,6 @@
 export default function Footer() {
   return (
-    <footer className="bg-[#1a3a49] bg-opacity-70 p-6 md:py-12 flex justify-center w-full z-10">
+    <footer className="bg-[#1a3a49] bg-opacity-90 p-6 md:py-6 flex flex-col justify-center w-full z-10">
       <div className="container max-w-7xl grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8 text-white text-sm text-center">
         {/* Company Section */}
         <div className="grid gap-2">
@@ -42,6 +42,10 @@ export default function Footer() {
           <h3 className="font-semibold">Contact</h3>
           <a href="#" className="hover:underline">Support</a>
         </div>
+      </div>
+
+      <div className="mt-6 text-center">
+          <p className="text-lg text-black">&copy; 2024 Trishastik Technology. All Rights Reserved.</p>
       </div>
     </footer>
   );

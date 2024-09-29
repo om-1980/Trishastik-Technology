@@ -27,10 +27,10 @@ const Signup = () => {
   const getBusinessTypeOptions = () => {
     if (role === 'Salesforce Remote Database Management') {
       return [
-        { value: 'small_businesses', label: 'Small Businesses' },
-        { value: 'schools', label: 'Schools' },
-        { value: 'coaching_centers', label: 'Coaching Centers' },
-        { value: 'libraries', label: 'Libraries' },
+        { value: 'small_business', label: 'Small Business' },
+        { value: 'school', label: 'School' },
+        { value: 'coaching_center', label: 'Coaching Center' },
+        { value: 'library', label: 'Library' },
         { value: 'others', label: 'Others' }, // Added "Others" option
       ];
     } else if (role === 'EduManage CRM Solutions') {
@@ -229,3 +229,6 @@ const Signup = () => {
 };
 
 export default Signup;
+
+
+// $secretKey = '8b3293f51c5a2e67de203a678dd4c9fb2f50e9a64b25ec8b79d9b70e1c1ad74a'; // 64 characters (256-bit)

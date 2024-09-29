@@ -45,4 +45,22 @@ html, body {
     flex-direction: row-reverse;
   }
 
-  
+.tab {
+  @apply px-4 py-2 text-lg font-semibold border-b-2 border-transparent hover:border-blue-500 transition-colors;
+}
+
+.tab.active {
+  @apply border-blue-500 text-blue-600;
+}
+
+.btn {
+  @apply px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors;
+}
+
+.table-auto {
+  @apply w-full border-collapse border border-gray-300;
+}
+
+th, td {
+  @apply border px-4 py-2 text-center;
+}

@@ -4,8 +4,8 @@ error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
 // Database credentials
-$servername = "localhost";
-$database = "u125382637_Solutions";
+$servername = "localhost:3306";
+$database = "u125382637_solutions";
 $username = "u125382637_trishastik";
 $password = "Deva@123deva";
 
