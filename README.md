@@ -1,6 +1,7 @@
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ![Front Page](https://github.com/user-attachments/assets/5134c171-2161-4cf4-b9e9-53f8ec1905ba)
+![Job portal](https://github.com/user-attachments/assets/33d71b14-d118-4762-8518-9917ea68dea4)
 
 ## Getting Started
 
