@@ -4,7 +4,7 @@ error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
 // Database credentials
-$servername = "localhost:3306";
+$servername = "127.0.0.1";
 $database = "u125382637_solutions";
 $username = "u125382637_trishastik";
 $password = "Deva@123deva";
@@ -18,6 +18,15 @@ if ($conn->connect_error) {
     echo json_encode(["message" => "Connection failed: " . $conn->connect_error]);
     exit();
 }
+
+
+
+if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+    http_response_code(405);
+    echo json_encode(['message' => 'Method Not Allowed']);
+    exit();
+}
+
 
 // Get JSON input data
 $data = json_decode(file_get_contents('php://input'), true);

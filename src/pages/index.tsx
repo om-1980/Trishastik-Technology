@@ -1,10 +1,10 @@
 'use client';
 import Image from 'next/image';
+import Link from 'next/link';
+import Head from 'next/head';
 import Header from '../components/header';
 import Footer from '../components/footer';
 import ParticleBackground from '../components/ParticleBackground';
-import Link from 'next/link';
-import Head from 'next/head';
 // import styles from '../styles/styles.module.css';
 
 
